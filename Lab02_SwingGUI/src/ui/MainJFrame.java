@@ -1,4 +1,4 @@
-package lib.ui; 
+package ui; 
 
 import javax.swing.*;
 import java.awt.*;
@@ -79,6 +79,15 @@ public class MainJFrame extends JFrame {
         add(formPanel, BorderLayout.CENTER);
 
         signInButton = new JButton("Sign In");
+        signInButton.addActionListener
+                                    (e -> 
+                                        buttonListener
+                                        (
+                                            e, 
+                                            nameField.getText(),
+                                            collegeGroup.getSelection().getActionCommand()
+                                        )
+                                    );
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.add(signInButton);
@@ -91,77 +100,59 @@ public class MainJFrame extends JFrame {
         return signInButton;
     }
 
-    public JTextField getNameField() {
-        return nameField;
-    }
+    public void buttonListener(java.awt.event.ActionEvent e, String name, String selectedCollege){
+        try
+        {
+            /* String selectedCollege = null;
+            if (coeButton.isSelected()) {
+                selectedCollege = "COE";
+            } else if (cpsButton.isSelected()) {
+                selectedCollege = "CPS";
+            } else if (cosButton.isSelected()) {
+                selectedCollege = "COS";
+            } */
 
-    public ButtonGroup getCollegeGroup() {
-        return collegeGroup;
-    }
-
-    public static void main(String[] args) {
-        MainJFrame mainJFrame = new MainJFrame();
-
-        mainJFrame.getSignInButton().addActionListener(e -> {
-            try
-            {
-                String name = mainJFrame
-                                .getNameField()
-                                .getText();
-
-                String selectedCollege = mainJFrame
-                                            .getCollegeGroup()
-                                            .getSelection()
-                                            .getActionCommand();
-
-                /* String selectedCollege = null;
-                if (coeButton.isSelected()) {
-                    selectedCollege = "COE";
-                } else if (cpsButton.isSelected()) {
-                    selectedCollege = "CPS";
-                } else if (cosButton.isSelected()) {
-                    selectedCollege = "COS";
-                } */
-
-                if (name.isEmpty()) {
-                    JOptionPane.showMessageDialog
-                        (
-                            mainJFrame, 
-                            "Please fill your name!", 
-                            "Error", 
-                            JOptionPane.ERROR_MESSAGE
-                        );
-                } else {
-                    JOptionPane.showMessageDialog
-                        (
-                            mainJFrame, 
-                            "Welcome, " + name + " to " + selectedCollege + "!", 
-                            "Success", 
-                            JOptionPane.HEIGHT
-                        );
-                }
-            }
-            catch(NullPointerException ne)
-            {
+            if (name.isEmpty()) {
                 JOptionPane.showMessageDialog
                     (
-                        mainJFrame, 
-                        "Please select your college!", 
-                        "Oops", 
+                        rootPane, 
+                        "Please fill your name!", 
+                        "Error", 
                         JOptionPane.ERROR_MESSAGE
                     );
-            }
-            catch(Exception ex)
-            {
+            } else {
                 JOptionPane.showMessageDialog
+                    (
+                        rootPane, 
+                        "Welcome, " + name + " to " + selectedCollege + "!", 
+                        "Success", 
+                        JOptionPane.HEIGHT
+                    );
+            }
+        }
+        catch(NullPointerException ne)
+        {
+            JOptionPane.showMessageDialog
                 (
-                    mainJFrame, 
-                    "Oops! Something went wrong!", 
-                    "Failed", 
+                    rootPane, 
+                    "Please select your college!", 
+                    "Oops", 
                     JOptionPane.ERROR_MESSAGE
                 );
-            }
-        });
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog
+            (
+                rootPane, 
+                "Oops! Something went wrong!", 
+                "Failed", 
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+    public static void main(String[] args) {
+        MainJFrame mainJFrame = new MainJFrame();
     }
 }
 
