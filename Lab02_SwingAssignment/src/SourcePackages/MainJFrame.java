@@ -7,14 +7,6 @@ import javax.imageio.ImageIO;
 
 public class MainJFrame extends JFrame {
     // first name, last name, gender age, phone number, email
-    private JButton signInButton;
-    private JTextField firstname;
-    private JTextField lastname;
-    private JTextField age;
-    private JTextField phoneNum;
-    private JTextField email;
-    private ButtonGroup genderGroup;
-    private JButton uploadButton;
     private ImageIcon imageIcon;
 
     public MainJFrame() {
@@ -47,7 +39,7 @@ public class MainJFrame extends JFrame {
         gbc.gridx = 1;
         gbc.gridy = 0;
         
-        firstname = new JTextField();
+        JTextField firstname = new JTextField();
         formPanel.add(firstname, gbc);
 
         gbc.gridx = 0;
@@ -58,7 +50,7 @@ public class MainJFrame extends JFrame {
         gbc.gridx = 1;
         gbc.gridy = 1;
 
-        lastname = new JTextField();
+        JTextField lastname = new JTextField();
         formPanel.add(lastname, gbc);
 
         gbc.gridx = 0;
@@ -69,7 +61,7 @@ public class MainJFrame extends JFrame {
         gbc.gridx = 1;
         gbc.gridy = 2;
 
-        age = new JTextField();
+        JTextField age = new JTextField();
         formPanel.add(age, gbc);
 
         gbc.gridx = 0;
@@ -80,7 +72,7 @@ public class MainJFrame extends JFrame {
         gbc.gridx = 1;
         gbc.gridy = 3;
 
-        phoneNum = new JTextField();
+        JTextField phoneNum = new JTextField();
         formPanel.add(phoneNum, gbc);
 
         gbc.gridx = 0;
@@ -91,7 +83,7 @@ public class MainJFrame extends JFrame {
         gbc.gridx = 1;
         gbc.gridy = 4;
 
-        email = new JTextField();
+        JTextField email = new JTextField();
         formPanel.add(email, gbc);
         
         gbc.gridx = 0;
@@ -111,7 +103,7 @@ public class MainJFrame extends JFrame {
         genderPanel.add(femaleButton);
         genderPanel.add(otherButton);
 
-        genderGroup = new ButtonGroup();
+        ButtonGroup genderGroup = new ButtonGroup();
         genderGroup.add(maleButton);
         genderGroup.add(femaleButton);
         genderGroup.add(otherButton);
@@ -124,10 +116,25 @@ public class MainJFrame extends JFrame {
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        uploadButton = new JButton("Upload Image");
+        JButton uploadButton = new JButton("Upload Image");
+        uploadButton.addActionListener(e -> uploadButtonListener(e));
         buttonPanel.add(uploadButton);
 
-        signInButton = new JButton("Sign In");
+        
+        JButton signInButton = new JButton("Sign In");
+        signInButton.addActionListener
+                                    (e -> 
+                                        signInButtonListener
+                                        (
+                                            e,
+                                            firstname.getText(),
+                                            lastname.getText(),
+                                            age.getText(),
+                                            genderGroup.getSelection().getActionCommand(),
+                                            email.getText(),
+                                            phoneNum.getText()
+                                        )
+                                    );
         buttonPanel.add(signInButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
@@ -143,188 +150,139 @@ public class MainJFrame extends JFrame {
         return imageIcon;
     }
 
-    public JButton getSignInButton() {
-        return signInButton;
-    }
+    private void uploadButtonListener(java.awt.event.ActionEvent evet){
+        JFileChooser file = new JFileChooser();
+        file.setDialogTitle("Select an Image File");
 
-    public JButton getUploadFileButton() {
-        return uploadButton;
-    }
+        if (file.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
+            try 
+            {
+                BufferedImage img = ImageIO.read(file.getSelectedFile());
 
-    public JTextField getField(String para) {
-        switch (para) {
-            case "firstname":
-                return firstname;
-            case "lastname":
-                return lastname;
-            case "email":
-                return email;
-            case "phoneNum":
-                return phoneNum;
-            case "age":
-                return age;
-            default:
-                return null;
+                Image edited_image = img
+                                        .getScaledInstance
+                                            (
+                                                60, 
+                                                80,
+                                                Image.SCALE_SMOOTH
+                                            );
+
+                if (edited_image != null) 
+                {
+                    this.setIcon(edited_image);
+                }
+                else
+                {
+                    JOptionPane
+                    .showMessageDialog(
+                        rootPane, 
+                        "Please upload image correctly.", 
+                        "Error - Incorrect image", 
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            } 
+            catch (Exception ex) 
+            {
+                JOptionPane
+                    .showMessageDialog(
+                        rootPane, 
+                        "Please upload image correctly.", 
+                        "Error - Incorrect image", 
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                ex.printStackTrace();
+            }
         }
     }
 
-    public ButtonGroup getGenderGroup() {
-        return genderGroup;
-    }
-
-    public static void main(String[] args) {
-        MainJFrame mainJFrame = new MainJFrame();
-
-        mainJFrame.getUploadFileButton().addActionListener(e -> {
-            JFileChooser file = new JFileChooser();
-            file.setDialogTitle("Select an Image File");
-
-            if (file.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
-                try 
-                {
-                    BufferedImage img = ImageIO.read(file.getSelectedFile());
-    
-                    Image edited_image = img
-                                            .getScaledInstance
-                                                (
-                                                    60, 
-                                                    80,
-                                                    Image.SCALE_SMOOTH
-                                                );
-    
-                    if (edited_image != null) 
-                    {
-                        mainJFrame.setIcon(edited_image);
-                    }
-                    else
-                    {
-                        JOptionPane
-                        .showMessageDialog(
-                            mainJFrame, 
-                            "Please upload image correctly.", 
-                            "Error - Incorrect image", 
-                            JOptionPane.ERROR_MESSAGE
-                        );
-                    }
-                } 
-                catch (Exception ex) 
-                {
-                    JOptionPane
-                        .showMessageDialog(
-                            mainJFrame, 
-                            "Please upload image correctly.", 
-                            "Error - Incorrect image", 
-                            JOptionPane.ERROR_MESSAGE
-                        );
-                    ex.printStackTrace();
-                }
-            }
-        });
-
-        mainJFrame.getSignInButton().addActionListener(e -> {
-            try
-            {
-                String firstname = mainJFrame
-                                .getField("firstname")
-                                .getText();
-
-                String lastname = mainJFrame
-                                .getField("lastname")
-                                .getText();
-                
-                String email = mainJFrame
-                                .getField("email")
-                                .getText();
-
-                String phoneNum = mainJFrame
-                                .getField("phoneNum")
-                                .getText();
-                
-                Integer phoneNumInteger = Integer.parseInt(phoneNum);
-
-                String age = mainJFrame
-                                .getField("age")
-                                .getText();
-                
-                Integer ageInteger = Integer.parseInt(age);
-
-                String selectedGender = mainJFrame
-                                            .getGenderGroup()
-                                            .getSelection()
-                                            .getActionCommand();
-
-                if (lastname.isEmpty() || firstname.isEmpty()) {
-                    JOptionPane.showMessageDialog
-                        (
-                            mainJFrame, 
-                            "Please fill your name!", 
-                            "Error", 
-                            JOptionPane.ERROR_MESSAGE
-                        );
-                } else if(phoneNumInteger <= 0 || email.isEmpty()){
-                    JOptionPane.showMessageDialog
-                        (
-                            mainJFrame, 
-                            "Please fill the correct contact info!", 
-                            "Error", 
-                            JOptionPane.ERROR_MESSAGE
-                        );
-                } else if(ageInteger < 0){
-                    JOptionPane.showMessageDialog
-                        (
-                            mainJFrame, 
-                            "Something wrong with your age!", 
-                            "Error", 
-                            JOptionPane.ERROR_MESSAGE
-                        );
-                } else {
-                    JOptionPane.showMessageDialog
-                        (
-                            mainJFrame, 
-                            "Welcome, " + firstname + " "+ lastname + "!\n" 
-                            + "Gender: " + selectedGender + "\n" 
-                            + "Email: " + email + "\n"
-                            + "Phone Number: " + phoneNum + "\n"
-                            + "Age: " + age + "\n",
-                            "Success", 
-                            JOptionPane.HEIGHT,
-                            mainJFrame.getIcon()
-                        );
-                }
-            }
-            catch(NullPointerException ne)
-            {
+    private void signInButtonListener
+                                    (
+                                        java.awt.event.ActionEvent evet,
+                                        String firstname, 
+                                        String lastname, 
+                                        String age, 
+                                        String selectedGender, 
+                                        String email, 
+                                        String phoneNum 
+                                    )
+    {
+        try
+        {
+            Integer ageInteger = Integer.parseInt(age);
+            Integer phoneNumInteger = Integer.parseInt(phoneNum);
+            if (lastname.isEmpty() || firstname.isEmpty()) {
                 JOptionPane.showMessageDialog
                     (
-                        mainJFrame, 
-                        "Please select your gender!", 
-                        "Oops", 
+                        rootPane, 
+                        "Please fill your name!", 
+                        "Error", 
                         JOptionPane.ERROR_MESSAGE
                     );
-            }
-            catch(NumberFormatException nex)
-            {
+            } else if(phoneNumInteger <= 0 || email.isEmpty()){
                 JOptionPane.showMessageDialog
+                    (
+                        rootPane, 
+                        "Please fill the correct contact info!", 
+                        "Error", 
+                        JOptionPane.ERROR_MESSAGE
+                    );
+            } else if(ageInteger < 0){
+                JOptionPane.showMessageDialog
+                    (
+                        rootPane, 
+                        "Something wrong with your age!", 
+                        "Error", 
+                        JOptionPane.ERROR_MESSAGE
+                    );
+            } else {
+                JOptionPane.showMessageDialog
+                    (
+                        rootPane, 
+                        "Welcome, " + firstname + " "+ lastname + "!\n" 
+                        + "Gender: " + selectedGender + "\n" 
+                        + "Email: " + email + "\n"
+                        + "Phone Number: " + phoneNum + "\n"
+                        + "Age: " + age + "\n",
+                        "Success", 
+                        JOptionPane.HEIGHT,
+                        this.getIcon()
+                    );
+            }
+        }
+        catch(NullPointerException ne)
+        {
+            JOptionPane.showMessageDialog
                 (
-                    mainJFrame, 
-                    "Please check your age and phone number is valid value!", 
-                    "Failed", 
+                    rootPane, 
+                    "Please select your gender!", 
+                    "Oops", 
                     JOptionPane.ERROR_MESSAGE
                 );
-            }
-            catch(Exception ex)
-            {
-                JOptionPane.showMessageDialog
-                (
-                    mainJFrame, 
-                    "Oops! Something went wrong!", 
-                    "Failed", 
-                    JOptionPane.ERROR_MESSAGE
-                );
-            }
-        });
-        
-        
+        }
+        catch(NumberFormatException nex)
+        {
+            JOptionPane.showMessageDialog
+            (
+                rootPane, 
+                "Please check your age and phone number is valid value!", 
+                "Failed", 
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog
+            (
+                rootPane, 
+                "Oops! Something went wrong!", 
+                "Failed", 
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+    public static void main(String[] args) {
+        MainJFrame mainJFrame = new MainJFrame();
     }
 }
 
