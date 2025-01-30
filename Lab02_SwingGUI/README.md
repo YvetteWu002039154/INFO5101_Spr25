@@ -21,4 +21,4 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 To run the code, please open terminal and type the following command:
 
-java -cp [FilePath You Put this project]/Lab02_SwingAssignment/bin App
+java -cp [FilePath You Put this project]/Lab02_SwingGUI/bin App
