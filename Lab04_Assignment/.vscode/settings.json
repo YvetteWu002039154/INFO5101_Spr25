@@ -1,7 +1,5 @@
 {
   "java.project.sourcePaths": ["src"],
   "java.project.outputPath": "bin",
-  "java.project.referencedLibraries": [
-    "/Users/lydia/Downloads/jcalendar-1.4/lib/jcalendar-1.4.jar"
-  ]
+  "java.project.referencedLibraries": ["lib/jcalendar-1.4.jar"]
 }
