@@ -7,4 +7,5 @@ Lab03_SwingProject: Add comboBox component and class model in the swing project 
 Lab03_Assignment: The assignment for Lab 03 and screenshots are put in Lab03_Assignment/ScreenShots.\
 Lab04_Navigation: Add Splitpanel, Cardlayout and JPanel component in the swing project in the lab.\
 Lab04_Assignment: The assignment with bonus function(DateChooser) for Lab 04 and screenshots are put in Lab04_Assignment/ScreenShots.\
-Lab05_Assignment: Create a JavaFX project with profile input and validation. It is also implemented by MVC architecture.
+Lab05_Assignment: Create a JavaFX project with profile input and validation. It is also implemented by MVC architecture.\
+Lab06_Docker: The assignment for the first try to create app and mysql container.
