@@ -8,5 +8,5 @@ Lab03_Assignment: The assignment for Lab 03 and screenshots are put in Lab03_Ass
 Lab04_Navigation: Add Splitpanel, Cardlayout and JPanel component in the swing project in the lab.\
 Lab04_Assignment: The assignment with bonus function(DateChooser) for Lab 04 and screenshots are put in Lab04_Assignment/ScreenShots.\
 Lab05_Assignment: Create a JavaFX project with profile input and validation. It is also implemented by MVC architecture.\
-Lab06_Docker: The assignment for the first try to create app and mysql container.
+Lab06_Docker: The assignment for the first try to create app and mysql container.\
 Lab07_JDBC: The assignment for practicing JDBC with MySQL running on the Docker.
