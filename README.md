@@ -9,4 +9,6 @@ Lab04_Navigation: Add Splitpanel, Cardlayout and JPanel component in the swing p
 Lab04_Assignment: The assignment with bonus function(DateChooser) for Lab 04 and screenshots are put in Lab04_Assignment/ScreenShots.\
 Lab05_Assignment: Create a JavaFX project with profile input and validation. It is also implemented by MVC architecture.\
 Lab06_Docker: The assignment for the first try to create app and mysql container.\
-Lab07_JDBC: The assignment for practicing JDBC with MySQL running on the Docker.
+Lab07_JDBC: The assignment for practicing JDBC with MySQL running on the Docker.\
+Lab08_DataVisualization: Create a jupyter notebook to do visualization for iris dataset.\
+Lab08_Assignment: Download [Diabetes.csv file](https://www.kaggle.com/datasets/akshaydattatraykhare/diabetes-dataset/data) from [Kaggle](https://www.kaggle.com/) and create a jupyter notebook to show 4 different diagram for it.
